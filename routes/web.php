@@ -40,7 +40,4 @@ Route::get('{any}',function (){
 })->where('any','.*');
 
 
-Route::get('/employee/get-countries',[EmployeeDataController::class,'countries']);
-Route::get('/employee/{country}/states',[EmployeeDataController::class,'countries']);
-Route::get('/employee/departments',[EmployeeDataController::class,'countries']);
-Route::get('/employee/{state}/cities',[EmployeeDataController::class,'countries']);
+

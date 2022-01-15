@@ -69,9 +69,9 @@
                                 <label class="col-md-4">Country</label>
                                 <div class="col-md-6">
 
-                                    <select name="country_id" id="country_id" class="form-control">
+                                    <select name="country_id" id="country_id" class="form-control" v-model="form.country_id" @change="getState()">
                                         <option value="">Please select a country</option>
-                                        <option value="test">Test</option>
+                                        <option value="test" v-for="country in countries" :key="country.id" :value="country.id">{{country.name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -81,9 +81,22 @@
                                 <label class="col-md-4">State</label>
                                 <div class="col-md-6">
 
-                                    <select name="state_id" id="state_id" class="form-control">
+                                    <select name="state_id" id="state_id" class="form-control" v-model="form.state_id" @change="getCities()">
                                         <option value="">Please select a state</option>
-                                        <option value="test">Test</option>
+                                        <option value="test" v-for="state in states" :key="state.id" :value="state.id">
+                                            {{ state.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!--City-->
+                            <div class="row mb-3">
+                                <label class="col-md-4">City</label>
+                                <div class="col-md-6">
+
+                                    <select name="state_id" id="city_id" class="form-control" v-model="form.city_id">
+                                        <option value="">Please select a city</option>
+                                        <option value="test" v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -94,7 +107,8 @@
                                 <div class="col-md-6">
                                     <select name="department_id" id="department_id" class="form-control">
                                         <option value="">Please select a department</option>
-                                        <option value="test">Test</option>
+                                        <option value="test" v-for="department in departments" :key="department.id" :value="department.id">
+                                            {{ department.name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -149,8 +163,63 @@
     export default {
         components:{
             Datepicker
+        },
+        data(){
+            return{
+                countries: [],
+                states:[],
+                departments:[],
+                cities:[],
+                form:{
+                    first_name:"",
+                    last_name:"",
+                    middle_name:"",
+                    address:"",
+                    country_id:"",
+                    state_id:"",
+                    department_id:"",
+                    city_id:"",
+                    birtdate:null,
+                    hired_date:null
+                }
+            }
+        },
+        created(){
+            this.getCountries(),
+            this.getDepartment()
+        },
+        methods:{
+            getCountries(){
+                axios.get('/api/employee/countries').then(res=>{
+                    this.countries = res.data
+                }).catch(error=>{
+                    console.log(console.error())
+                });
+            },
+            getState(){
+                axios.get("/api/employee/"+this.form.country_id+"/states").then(res=>{
+                    this.states = res.data
+                }).catch(error=>{
+                    console.log(console.error())
+                })
+            },
+            getCities(){
+                axios.get("/api/employee/"+this.form.state_id+"/cities").then(res=>{
+                    this.cities = res.data
+                }).catch(error=>{
+                    console.log(console.error())
+                })
+            },
+            getDepartment(){
+                axios.get('/api/employee/departments').then(res=>{
+                    this.departments = res.data
+                }).catch(error=>{
+                    console.log(console.error())
+                });
+            },
         }
     }
+
 </script>
 
 <style scoped>

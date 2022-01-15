@@ -6,6 +6,7 @@ use \App\Http\Controllers\Backend\CountryController;
 use \App\Http\Controllers\Backend\StateController;
 use \App\Http\Controllers\Backend\CityController;
 use \App\Http\Controllers\Backend\DepartmentController;
+use \App\Http\Controllers\Api\EmployeeDataController;
 
 
 
@@ -34,4 +35,12 @@ Route::resource('state',StateController::class);
 Route::resource('city',CityController::class);
 Route::resource('department',DepartmentController::class);
 
+Route::get('{any}',function (){
+   return view('employee.index');
+})->where('any','.*');
 
+
+Route::get('/employee/get-countries',[EmployeeDataController::class,'countries']);
+Route::get('/employee/{country}/states',[EmployeeDataController::class,'countries']);
+Route::get('/employee/departments',[EmployeeDataController::class,'countries']);
+Route::get('/employee/{state}/cities',[EmployeeDataController::class,'countries']);

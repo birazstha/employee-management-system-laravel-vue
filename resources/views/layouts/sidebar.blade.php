@@ -44,7 +44,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
            aria-expanded="true" aria-controls="collapseThree">
-            <i class="fas fa-fw fa-user"></i>
+            <i class="fas fa-fw fa-user-cog"></i>
             <span>User Management</span>
         </a>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
@@ -57,10 +57,17 @@
     </li>
 
     <li class="nav-item">
-        {{--            <a class="nav-link" href="#">--}}
-        {{--                <i class="fas fa-fw fa-sign-out"></i>--}}
-        {{--                <span>Logout</span>--}}
-        {{--            </a>--}}
+
+        <a class="nav-link" href="/employee"  >
+            <i class="fas fa-user"></i>
+            Employee Mgmnt
+
+        </a>
+
+    </li>
+
+    <li class="nav-item">
+
         <a class="nav-link" href="{{ route('logout') }}"  onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
             <i class="fas fa-fw fa-sign-out"></i>

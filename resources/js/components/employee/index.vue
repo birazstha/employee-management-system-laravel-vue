@@ -11,20 +11,29 @@
                     {{message}}
                 </div>
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-4">
                         <h6 class="m-0 font-weight-bold text-primary">
                             <router-link :to="{name:'EmployeeCreate'}" class="btn btn-success"><i class="fas fa-plus"></i>Create</router-link>
                         </h6>
                     </div>
                     <div class="col-4 search">
-
-                            <form method="GET" action="">
+                        <form method="GET" action="">
                                 <label>Search:
-                                    <input type="search" name="search" class="form-control form-control-sm" placeholder="">
+                                    <select name="department_id" id="department_id" v-model="selectedDepartment" class="form-control form-control-sm">
+                                        <option value="">Select a department</option>
+                                        <option v-for="department in departments" :key="department.id" :value="department.id">
+                                            {{ department.name }}</option>
+                                    </select>
                                 </label>
-                                <button type="submit" class="btn btn-success">Search</button>
-                            </form>
-
+                                          </form>
+                    </div>
+                    <div class="col-4 search">
+                        <form method="GET" action="">
+                            <label>Search:
+                                <input type="search" name="search" v-model="search" class="form-control form-control-sm" placeholder="">
+                            </label>
+                            <button type="submit" class="btn btn-success">Search</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -73,19 +82,38 @@ export default{
         return{
             employees:[],
             showMessage: false,
+            search:null,
+            selectedDepartment:null,
+            departments:[],
             message:''
+        }
+    },
+    watch:{
+        search(){
+            this.getEmployees();
+        },
+        selectedDepartment(){
+            this.getEmployees();
         }
     },
     created(){
         this.getEmployees();
+        this.getDepartment();
     },
     methods:{
         getEmployees(){
-            axios.get('/api/employees').then(res=>{
+            axios.get('/api/employees',{params:{search:this.search,department_id:this.selectedDepartment}}).then(res=>{
                 this.employees = res.data.data
             }).catch(error=>{
                 console.log(error)
             })
+        },
+        getDepartment(){
+            axios.get('/api/employees/departments').then(res=>{
+                this.departments = res.data
+            }).catch(error=>{
+                console.log(console.error())
+            });
         },
         deleteEmployee(id){
             axios.delete('api/employees/'+id).then(res=>{

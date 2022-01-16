@@ -5449,15 +5449,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5571,15 +5562,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5922,36 +5904,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       employees: [],
       showMessage: false,
+      search: null,
+      selectedDepartment: null,
+      departments: [],
       message: ''
     };
   },
+  watch: {
+    search: function search() {
+      this.getEmployees();
+    },
+    selectedDepartment: function selectedDepartment() {
+      this.getEmployees();
+    }
+  },
   created: function created() {
     this.getEmployees();
+    this.getDepartment();
   },
   methods: {
     getEmployees: function getEmployees() {
       var _this = this;
 
-      axios.get('/api/employees').then(function (res) {
+      axios.get('/api/employees', {
+        params: {
+          search: this.search,
+          department_id: this.selectedDepartment
+        }
+      }).then(function (res) {
         _this.employees = res.data.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    deleteEmployee: function deleteEmployee(id) {
+    getDepartment: function getDepartment() {
       var _this2 = this;
+
+      axios.get('/api/employees/departments').then(function (res) {
+        _this2.departments = res.data;
+      })["catch"](function (error) {
+        console.log(console.error());
+      });
+    },
+    deleteEmployee: function deleteEmployee(id) {
+      var _this3 = this;
 
       axios["delete"]('api/employees/' + id).then(function (res) {
         // console.log(res);
-        _this2.showMessage = true;
-        _this2.message = 'Employee succesfully deleted';
+        _this3.showMessage = true;
+        _this3.message = 'Employee succesfully deleted';
 
-        _this2.getEmployees();
+        _this3.getEmployees();
       });
     }
   }
@@ -50881,8 +50898,6 @@ var render = function () {
               1
             ),
           ]),
-          _vm._v(" "),
-          _vm._m(0),
         ]),
       ]),
       _vm._v(" "),
@@ -51426,7 +51441,7 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _vm._m(0),
                   ]
                 ),
               ]),
@@ -51438,28 +51453,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4 search" }, [
-      _c("form", { attrs: { method: "GET", action: "" } }, [
-        _c("label", [
-          _vm._v("Search:\n                            "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "search", name: "search", placeholder: "" },
-          }),
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("Search")]
-        ),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -51535,8 +51528,6 @@ var render = function () {
               1
             ),
           ]),
-          _vm._v(" "),
-          _vm._m(0),
         ]),
       ]),
       _vm._v(" "),
@@ -52080,7 +52071,7 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _vm._m(0),
                   ]
                 ),
               ]),
@@ -52092,28 +52083,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4 search" }, [
-      _c("form", { attrs: { method: "GET", action: "" } }, [
-        _c("label", [
-          _vm._v("Search:\n                            "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "search", name: "search", placeholder: "" },
-          }),
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("Search")]
-        ),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -52175,7 +52144,7 @@ var render = function () {
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-8" }, [
+          _c("div", { staticClass: "col-4" }, [
             _c(
               "h6",
               { staticClass: "m-0 font-weight-bold text-primary" },
@@ -52193,7 +52162,100 @@ var render = function () {
             ),
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "col-4 search" }, [
+            _c("form", { attrs: { method: "GET", action: "" } }, [
+              _c("label", [
+                _vm._v("Search:\n                                "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selectedDepartment,
+                        expression: "selectedDepartment",
+                      },
+                    ],
+                    staticClass: "form-control form-control-sm",
+                    attrs: { name: "department_id", id: "department_id" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selectedDepartment = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Select a department"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.departments, function (department) {
+                      return _c(
+                        "option",
+                        {
+                          key: department.id,
+                          domProps: { value: department.id },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(department.name)
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-4 search" }, [
+            _c("form", { attrs: { method: "GET", action: "" } }, [
+              _c("label", [
+                _vm._v("Search:\n                            "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search,
+                      expression: "search",
+                    },
+                  ],
+                  staticClass: "form-control form-control-sm",
+                  attrs: { type: "search", name: "search", placeholder: "" },
+                  domProps: { value: _vm.search },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.search = $event.target.value
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-success", attrs: { type: "submit" } },
+                [_vm._v("Search")]
+              ),
+            ]),
+          ]),
         ]),
       ]),
       _vm._v(" "),
@@ -52206,7 +52268,7 @@ var render = function () {
               attrs: { id: "dataTable", width: "100%", cellspacing: "0" },
             },
             [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -52266,28 +52328,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4 search" }, [
-      _c("form", { attrs: { method: "GET", action: "" } }, [
-        _c("label", [
-          _vm._v("Search:\n                                "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "search", name: "search", placeholder: "" },
-          }),
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("Search")]
-        ),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

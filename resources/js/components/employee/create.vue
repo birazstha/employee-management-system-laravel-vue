@@ -13,16 +13,7 @@
                             <router-link class="btn btn-warning" :to="{name:'EmployeeIndex'}"><i class="fas fa-list"></i>List</router-link>
                         </h6>
                     </div>
-                    <div class="col-4 search">
 
-                        <form method="GET" action="">
-                            <label>Search:
-                                <input type="search" name="search" class="form-control form-control-sm" placeholder="">
-                            </label>
-                            <button type="submit" class="btn btn-success">Search</button>
-                        </form>
-
-                    </div>
                 </div>
             </div>
 

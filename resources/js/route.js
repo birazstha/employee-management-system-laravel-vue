@@ -10,7 +10,7 @@ export const routes = [
         path:'/employee/create',name:'EmployeeCreate',component:EmployeeCreate
     },
     {
-        path:'/employee/edit/:id',name:'EmployeeEdit',component:EmployeeEdit
+        path:'/employees/edit/:id',name:'EmployeeEdit',component:EmployeeEdit
     },
 
 ];

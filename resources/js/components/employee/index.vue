@@ -7,6 +7,9 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-4">
+                <div class="alert alert-success" role="alert" v-if="showMessage">
+                    {{message}}
+                </div>
                 <div class="row">
                     <div class="col-8">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -49,7 +52,7 @@
                             <td>{{employee.department.name}}</td>
                             <td>
                                 <router-link :to="{name:'EmployeeEdit',params:{id:employee.id}}" class="btn btn-primary">Edit</router-link>
-                                <button class="btn btn-danger">Delete</button>
+                                <button class="btn btn-danger" @click="deleteEmployee(employee.id)">Delete</button>
                             </td>
                         </tr>
                         </tbody>
@@ -68,7 +71,9 @@
 export default{
     data(){
         return{
-            employees:[]
+            employees:[],
+            showMessage: false,
+            message:''
         }
     },
     created(){
@@ -80,6 +85,14 @@ export default{
                 this.employees = res.data.data
             }).catch(error=>{
                 console.log(error)
+            })
+        },
+        deleteEmployee(id){
+            axios.delete('api/employees/'+id).then(res=>{
+                // console.log(res);
+                this.showMessage =true;
+                this.message = 'Employee succesfully deleted';
+                this.getEmployees();
             })
         }
     }

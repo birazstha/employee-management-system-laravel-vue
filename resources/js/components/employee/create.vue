@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-8">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <router-link class="btn btn-success" :to="{name:'EmployeeIndex'}"><i class="fas fa-plus"></i>List</router-link>
+                            <router-link class="btn btn-warning" :to="{name:'EmployeeIndex'}"><i class="fas fa-list"></i>List</router-link>
                         </h6>
                     </div>
                     <div class="col-4 search">
@@ -192,35 +192,35 @@
         },
         methods:{
             getCountries(){
-                axios.get('/api/employee/countries').then(res=>{
+                axios.get('/api/employees/countries').then(res=>{
                     this.countries = res.data
                 }).catch(error=>{
                     console.log(console.error())
                 });
             },
             getState(){
-                axios.get("/api/employee/"+this.form.country_id+"/states").then(res=>{
+                axios.get("/api/employees/"+this.form.country_id+"/states").then(res=>{
                     this.states = res.data
                 }).catch(error=>{
                     console.log(console.error())
                 })
             },
             getCities(){
-                axios.get("/api/employee/"+this.form.state_id+"/cities").then(res=>{
+                axios.get("/api/employees/"+this.form.state_id+"/cities").then(res=>{
                     this.cities = res.data
                 }).catch(error=>{
                     console.log(console.error())
                 })
             },
             getDepartment(){
-                axios.get('/api/employee/departments').then(res=>{
+                axios.get('/api/employees/departments').then(res=>{
                     this.departments = res.data
                 }).catch(error=>{
                     console.log(console.error())
                 });
             },
             storeEmployee(){
-               axios.post("/api/employee",{
+               axios.post("/api/employees",{
                    'first_name':this.form.first_name,
                    'middle_name':this.form.middle_name,
                    'address':this.form.address,
@@ -233,7 +233,8 @@
                    'date_hired':this.format_date(this.form.date_hired),
                    'birthdate':this.format_date(this.form.birthdate),
                }).then(res=>{
-                   console.log(res)
+                   // console.log(res)
+                   this.$router.push({name:'EmployeeIndex'});
                });
             },
             format_date(value){

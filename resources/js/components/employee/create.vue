@@ -31,12 +31,12 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
                         <div>
-                        <form method="POST" action="">
+                        <form action="" @submit.prevent="storeEmployee()">
                             <!--First Name-->
                             <div class="row mb-3">
                                 <label class="col-md-4">First Name</label>
                                 <div class="col-md-6">
-                                    <input id="first_name" type="text" class="form-control" name="first_name" required autocomplete="first_name" autofocus>
+                                    <input id="first_name" v-model="form.first_name" type="text" class="form-control" name="first_name" required autocomplete="first_name" autofocus>
                                 </div>
                             </div>
 
@@ -44,7 +44,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Last Name</label>
                                 <div class="col-md-6">
-                                    <input id="last_name" type="text" class="form-control" name="last_name" required autocomplete="last_name" autofocus>
+                                    <input id="last_name" v-model="form.last_name" type="text" class="form-control" name="last_name" required autocomplete="last_name" autofocus>
                                 </div>
                             </div>
 
@@ -52,7 +52,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Middle Name</label>
                                 <div class="col-md-6">
-                                    <input id="middle_name" type="text" class="form-control" name="middle_name" required autocomplete="middle_name" autofocus>
+                                    <input id="middle_name" v-model="form.middle_name" type="text" class="form-control" name="middle_name" autocomplete="middle_name" placeholder="Optional" autofocus>
                                 </div>
                             </div>
 
@@ -60,7 +60,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Address</label>
                                 <div class="col-md-6">
-                                    <input id="address" type="text" class="form-control" name="address" required autocomplete="address" autofocus>
+                                    <input id="address" v-model="form.address" type="text" class="form-control" name="address" required autocomplete="address" autofocus>
                                 </div>
                             </div>
 
@@ -68,14 +68,12 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Country</label>
                                 <div class="col-md-6">
-
                                     <select name="country_id" id="country_id" class="form-control" v-model="form.country_id" @change="getState()">
                                         <option value="">Please select a country</option>
                                         <option value="test" v-for="country in countries" :key="country.id" :value="country.id">{{country.name}}</option>
                                     </select>
                                 </div>
                             </div>
-
                             <!--State-->
                             <div class="row mb-3">
                                 <label class="col-md-4">State</label>
@@ -105,7 +103,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Department</label>
                                 <div class="col-md-6">
-                                    <select name="department_id" id="department_id" class="form-control">
+                                    <select name="department_id" id="department_id" class="form-control" v-model="form.department_id">
                                         <option value="">Please select a department</option>
                                         <option value="test" v-for="department in departments" :key="department.id" :value="department.id">
                                             {{ department.name }}</option>
@@ -117,7 +115,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Zip Code</label>
                                 <div class="col-md-6">
-                                    <input id="zip_code" type="text" class="form-control" name="zip_code" required autocomplete="middle_name" autofocus>
+                                    <input id="zip_code" v-model="form.zip_code" type="text" class="form-control" name="zip_code" required autocomplete="middle_name" autofocus>
                                 </div>
                             </div>
 
@@ -125,7 +123,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Birth Date</label>
                                 <div class="col-md-6">
-                                    <datepicker input-class="form-control"></datepicker>
+                                    <datepicker input-class="form-control" v-model="form.birthdate"></datepicker>
                                 </div>
                             </div>
 
@@ -133,7 +131,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Date Hired</label>
                                 <div class="col-md-6">
-                                    <datepicker input-class="form-control"></datepicker>
+                                    <datepicker input-class="form-control" v-model="form.date_hired"></datepicker>
                                 </div>
                             </div>
 
@@ -160,6 +158,8 @@
 
 <script>
     import Datepicker from 'vuejs-datepicker';
+    import moment from 'moment';
+
     export default {
         components:{
             Datepicker
@@ -179,8 +179,10 @@
                     state_id:"",
                     department_id:"",
                     city_id:"",
-                    birtdate:null,
-                    hired_date:null
+                    zip_code:"",
+                    birthdate:null,
+                    date_hired:null,
+
                 }
             }
         },
@@ -217,6 +219,28 @@
                     console.log(console.error())
                 });
             },
+            storeEmployee(){
+               axios.post("/api/employee",{
+                   'first_name':this.form.first_name,
+                   'middle_name':this.form.middle_name,
+                   'address':this.form.address,
+                   'last_name':this.form.last_name,
+                   'country_id':this.form.country_id,
+                   'state_id':this.form.state_id,
+                   'city_id':this.form.city_id,
+                   'zip_code':this.form.zip_code,
+                   'department_id':this.form.department_id,
+                   'date_hired':this.format_date(this.form.date_hired),
+                   'birthdate':this.format_date(this.form.birthdate),
+               }).then(res=>{
+                   console.log(res)
+               });
+            },
+            format_date(value){
+                if(value){
+                    return moment(String(value)).format('YYYYMMDD')
+                }
+            }
         }
     }
 

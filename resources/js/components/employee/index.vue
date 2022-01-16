@@ -31,7 +31,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>S.No</th>
+                            <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Address</th>
@@ -40,14 +40,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+
+                        <tr v-for="employee in employees" :key="employee.id">
+                            <td>{{employee.id}}</td>
+                            <td>{{employee.first_name}}</td>
+                            <td>{{employee.last_name}}</td>
+                            <td>{{employee.address}}</td>
+                            <td>{{employee.department.name}}</td>
                             <td>
-                                <button class="btn btn-primary">Edit</button>
+                                <router-link :to="{name:'EmployeeEdit',params:{id:employee.id}}" class="btn btn-primary">Edit</router-link>
                                 <button class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
@@ -64,6 +65,26 @@
 </template>
 
 <script>
+export default{
+    data(){
+        return{
+            employees:[]
+        }
+    },
+    created(){
+        this.getEmployees();
+    },
+    methods:{
+        getEmployees(){
+            axios.get('/api/employees').then(res=>{
+                this.employees = res.data.data
+            }).catch(error=>{
+                console.log(error)
+            })
+        }
+    }
+}
+
 </script>
 
 <style scoped>

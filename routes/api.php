@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\EmployeeDataController;
 use \App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::get('/employees/departments',[EmployeeDataController::class,'departments'
 //Route::delete('/employee/{employee}',[EmployeeController::class,'destroy']);
 
 Route::apiResource('employees',EmployeeController::class);
+Route::apiResource('countries',CountryController::class);
 

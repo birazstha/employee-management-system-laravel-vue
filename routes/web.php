@@ -35,9 +35,39 @@ Route::resource('state',StateController::class);
 Route::resource('city',CityController::class);
 Route::resource('department',DepartmentController::class);
 
-Route::get('{any}',function (){
-   return view('employee.index');
-})->where('any','.*');
+//Route::get('{any}',function (){
+//   return view('employee.index');
+//})->where('any','.*');
+
+Route::prefix('employee/')->group(function(){
+    Route::get('create',function (){
+        return view('employee.index');
+    });
+
+    Route::get('',function (){
+        return view('employee.index');
+    });
+
+    Route::get('edit/{id}',function (){
+        return view('employee.index');
+    });
+});
+
+Route::prefix('country/')->group(function(){
+    Route::get('create',function (){
+        return view('employee.index');
+    });
+
+    Route::get('',function (){
+        return view('employee.index');
+    });
+
+    Route::get('edit/{id}',function (){
+        return view('employee.index');
+    });
+});
+
+
 
 
 

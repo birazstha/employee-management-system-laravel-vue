@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-4 search">
                         <form method="GET" action="">
-                                <label>Search:
+                                <label>Department
                                     <select name="department_id" id="department_id" v-model="selectedDepartment" class="form-control form-control-sm">
                                         <option value="">Select a department</option>
                                         <option v-for="department in departments" :key="department.id" :value="department.id">
@@ -40,12 +40,14 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
+                    <table class="table table-bordered rounded" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="table-dark" style="text-align: center">
                         <tr>
                             <th>ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
+                            <th>Country</th>
+                            <th>State</th>
                             <th>Address</th>
                             <th>Department</th>
                             <th>Action</th>
@@ -57,6 +59,8 @@
                             <td>{{employee.id}}</td>
                             <td>{{employee.first_name}}</td>
                             <td>{{employee.last_name}}</td>
+                            <td>{{employee.country.name}}</td>
+                            <td>{{employee.state.name}}</td>
                             <td>{{employee.address}}</td>
                             <td>{{employee.department.name}}</td>
                             <td>
@@ -122,7 +126,8 @@ export default{
                 this.message = 'Employee succesfully deleted';
                 this.getEmployees();
             })
-        }
+        },
+
     }
 }
 

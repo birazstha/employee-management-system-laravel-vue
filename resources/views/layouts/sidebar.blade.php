@@ -33,7 +33,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('country.index')}}">Country</a>
+                <a class="collapse-item" href="/country">Country</a>
                 <a class="collapse-item" href="{{route('state.index')}}">State</a>
                 <a class="collapse-item" href="{{route('department.index')}}">Department</a>
                 <a class="collapse-item" href="{{route('city.index')}}">City</a>

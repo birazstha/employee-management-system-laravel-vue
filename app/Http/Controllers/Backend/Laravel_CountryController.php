@@ -24,6 +24,12 @@ class CountryController extends BackendBaseController
     }
 
     public function index(Request $request){
+        $this->title='List';
+        $data['rows']=$this->model->all();
+        if($request->has('search')){
+            $data['rows'] = $this->model->where('name','like',"%{$request->search}%")->orWhere('country_code','like',"%{$request->search}%")->get();
+        }
+        return view($this->__loadDataToView($this->folder.'index'),compact('data'));
 
     }
 

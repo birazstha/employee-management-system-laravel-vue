@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "epic-spinners": "^1.1.0",
         "moment": "^2.29.1",
         "vue-router": "^3.5.3",
         "vuejs-datepicker": "^1.6.2"

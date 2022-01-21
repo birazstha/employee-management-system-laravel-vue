@@ -15,6 +15,7 @@ Vue.use(VueRouter);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('employee-index', require('./components/employee/index.vue').default);
+Vue.component('country-index', require('./components/country/index.vue').default);
 
 const router = new VueRouter({
     mode:'history',

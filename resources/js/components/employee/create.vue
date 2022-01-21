@@ -27,7 +27,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">First Name</label>
                                 <div class="col-md-6">
-                                    <input id="first_name" v-model="form.first_name" type="text" class="form-control" name="first_name" required autocomplete="first_name" autofocus>
+                                    <input id="first_name" v-model="form.first_name" type="text" class="form-control" name="first_name" required autocomplete="first_name">
                                 </div>
                             </div>
 
@@ -35,7 +35,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Last Name</label>
                                 <div class="col-md-6">
-                                    <input id="last_name" v-model="form.last_name" type="text" class="form-control" name="last_name" required autocomplete="last_name" autofocus>
+                                    <input id="last_name" v-model="form.last_name" type="text" class="form-control" name="last_name" required autocomplete="last_name">
                                 </div>
                             </div>
 
@@ -43,7 +43,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Middle Name</label>
                                 <div class="col-md-6">
-                                    <input id="middle_name" v-model="form.middle_name" type="text" class="form-control" name="middle_name" autocomplete="middle_name" placeholder="Optional" autofocus>
+                                    <input id="middle_name" v-model="form.middle_name" type="text" class="form-control" name="middle_name" autocomplete="middle_name" placeholder="Optional">
                                 </div>
                             </div>
 
@@ -51,7 +51,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Address</label>
                                 <div class="col-md-6">
-                                    <input id="address" v-model="form.address" type="text" class="form-control" name="address" required autocomplete="address" autofocus>
+                                    <input id="address" v-model="form.address" type="text" class="form-control" name="address" required autocomplete="address">
                                 </div>
                             </div>
 
@@ -106,7 +106,7 @@
                             <div class="row mb-3">
                                 <label class="col-md-4">Zip Code</label>
                                 <div class="col-md-6">
-                                    <input id="zip_code" v-model="form.zip_code" type="text" class="form-control" name="zip_code" required autocomplete="middle_name" autofocus>
+                                    <input id="zip_code" v-model="form.zip_code" type="text" class="form-control" name="zip_code" required autocomplete="middle_name">
                                 </div>
                             </div>
 
